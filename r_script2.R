@@ -27,5 +27,37 @@ diverisity <- df %>%
   select(contains("Diversity"))
 
 
+#### group by ####
+meanph <- df %>% group_by(Reactor.phase) %>% 
+                  summarise(mean.ph=mean(ph),
+                            mean.d2=mean(Diversity...D2),
+                            sd.ph=sd(ph))
+#challenge
+#generate sumary for reactor cycle 2 and add standard dev of the d2 and 
+#log10 transformed cell count
+challenge <- df %>% group_by(Reactor.phase) %>% 
+  filter(Reactor.cycle=="2") %>% 
+  summarise(sd.d2=sd(Diversity...D2),
+            log.cc=mean(log10(Cell.density..cells.mL.)))
+
+####mutate####
+test <- df %>%
+  filter(Reactor.cycle == 2) %>%
+  mutate(condratio = Conductivity/temp) %>%   
+  summarise(mean_d2 = mean(Diversity...D2),
+            mean_log_celldens = mean(log(Cell.density..cells.mL.)))
+
+
+####join data sets####
+
+#split them for this example
+physicochem <- df %>%  
+  select(sample_title, temp, ph, Conductivity)
+diversity <- df %>% 
+  select(sample_title,contains("Diversity"))
+
+#combine
+physicodiversity <- dplyr::full_join(physicochem,diversity,by="sample_title")
+df.nona <- na.exclude(df)
 
 
