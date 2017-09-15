@@ -54,3 +54,24 @@ p6
 ### Middle: Diversity DO
 ### Left: Cell density
 
+p7 <- ggplot(data=df, aes(x=Timepoint, y=Diversity...D0)) + geom_point (shape=21, size=2, alpha=.5,  aes(color=Reactor.phase)) + geom_line(aes(color=Reactor.phase)) + theme_bw() + scale_y_log10()
+p7
+p8 <- p7 + facet_grid(~Reactor.cycle)
+p8
+
+### other examples
+
+
+## Right side
+p5<-ggplot(data=df, aes(x=Timepoint , y=Diversity...D0, fill=Reactor.phase ))+
+  geom_point(shape=21, size=5)
+P6 <- p5 + facet_grid(~Reactor.phase)+theme_dark()
+P6
+
+### Middle side
+############### conductivity ###### df <- read.csv("Metadata.csv",nrows=77) pp1 <- ggplot(data=df,aes(x= Timepoint,y=Conductivity,fill=Reactor.phase)) 
+pp1 <- pp1 + geom_point(shape=21,size=4,alpha = 0.5) + theme_bw() +  geom_line(aes(color=Reactor.cycle)) # Facet it pp3 <- pp1 + facet_grid(~Reactor.cycle)  # how do i know whats in reactor phase unique(df$Reactor.phase) #plot alles in fucntie van reactor phase pp4 <- pp1 + facet_grid(Reactor.phase~Reactor.cycle) pp4
+
+
+
+
